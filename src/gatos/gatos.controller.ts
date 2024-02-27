@@ -1,4 +1,5 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, HttpStatus, Param, Res } from '@nestjs/common';
+import { Response } from 'express';
 import { Gato } from 'src/gato/gato.interface';
 
 @Controller('gatos')
@@ -25,8 +26,13 @@ export class GatosController {
     }
 
     @Get(':id')
-    findOne(@Param('id') id : string): Gato | undefined {
-        return this.gatos.find((gato) => gato.id === Number(id));
+    findOne(@Param('id') id : string, @Res() response: Response) {
+        const gato = this.gatos.find((gato) => gato.id === Number(id));
+        if(gato){
+            response.status(HttpStatus.OK).json(gato);
+        } else {
+            response.status(HttpStatus.NOT_FOUND).send();
+        }
     }
 
 }
