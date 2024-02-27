@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 import { Gato } from 'src/gato/gato.interface';
 
 @Controller('gatos')
@@ -22,6 +22,11 @@ export class GatosController {
     @Get()
     findAll(): Gato[] {
         return this.gatos;
+    }
+
+    @Get(':id')
+    findOne(@Param('id') id : string): Gato | undefined {
+        return this.gatos.find((gato) => gato.id === Number(id));
     }
 
 }
