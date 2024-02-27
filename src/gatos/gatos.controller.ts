@@ -6,11 +6,13 @@ export class GatosController {
 
     private readonly gatos: Gato[] = [
         {
+            id: 1,
             nome: "Black",
             raca: "Mestiça",
             idade: 2
         },
         {
+            id: 2,
             nome: "Garfield",
             raca: "Desconhecida",
             idade: 45
