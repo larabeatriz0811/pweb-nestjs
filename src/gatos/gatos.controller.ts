@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Res } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Put, Res } from '@nestjs/common';
 import { Response } from 'express';
 import { Gato } from 'src/gato/gato.interface';
 
@@ -51,5 +51,16 @@ create(@Body()gato: Gato) {
     // console.log(gato);
     this.gatos.push(gato);
     return gato;
+    }
+
+    @Put(':id')
+    update(@Param('id') id : string, @Body() gato: Gato, @Res() response: Response) {
+        const index = this.gatos.findIndex((gato) => gato.id === Number(id));
+        if(index >= 0){
+            this.gatos.splice(index, 1, gato);
+            response.status(HttpStatus.OK).json(gato);
+        } else {
+            response.status(HttpStatus.NOT_FOUND).send();
+        }
     }
 }
