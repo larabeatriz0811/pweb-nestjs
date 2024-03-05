@@ -1,4 +1,4 @@
-import { Controller, Get, HttpStatus, Param, Res } from '@nestjs/common';
+import { Controller, Delete, Get, HttpStatus, Param, Res } from '@nestjs/common';
 import { Response } from 'express';
 import { Gato } from 'src/gato/gato.interface';
 
@@ -35,4 +35,13 @@ export class GatosController {
         }
     }
 
+    @Delete(':id')
+    delete(@Param('id') id : string, @Res() response: Response){
+        const index = this.gatos.findIndex((gato) => gato.id === Number(id));
+        if(index >=0){
+            response.status(HttpStatus.NO_CONTENT).send();
+    } else{
+        response.status(HttpStatus.NOT_FOUND).send();
+    }
+}
 }
