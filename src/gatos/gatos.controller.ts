@@ -1,9 +1,13 @@
-import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Put, Res } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpStatus, Injectable, Param, Post, Put, Res } from '@nestjs/common';
+import { fail } from 'assert';
 import { Response } from 'express';
 import { Gato } from 'src/gato/gato.interface';
+import { GatosService } from './gatos.service';
 
 @Controller('gatos')
 export class GatosController {
+
+    constructor(private gatosService: GatosService) {}
 
     private readonly gatos: Gato[] = [
         {
@@ -22,7 +26,7 @@ export class GatosController {
 
     @Get()
     findAll(): Gato[] {
-        return this.gatos;
+        return this.gatosService.findAll();
     }
 
     @Get(':id')
@@ -64,3 +68,4 @@ create(@Body()gato: Gato) {
         }
     }
 }
+
