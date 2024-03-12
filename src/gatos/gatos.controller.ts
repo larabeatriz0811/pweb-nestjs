@@ -54,9 +54,7 @@ export class GatosController {
 
 @Post()
 create(@Body()gato: Gato) {
-    // console.log('create'); 
-    // console.log(gato);
-    this.gatos.push(gato);
+    this.gatosService.create(gato);
     return gato;
     }
 

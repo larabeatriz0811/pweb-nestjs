@@ -34,5 +34,10 @@ export class GatosService {
     deleteByIndex(index : number){
         this.gatos.splice(index, 1);
     }
+
+    create(gato: Gato) {
+        this.gatos.push(gato);
+    }
+
 }
 
