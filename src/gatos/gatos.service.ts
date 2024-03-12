@@ -39,5 +39,9 @@ export class GatosService {
         this.gatos.push(gato);
     }
 
+    updateByIndex(index : number, gato: Gato){
+        this.gatos.splice(index, 1, gato);
+    }
+
 }
 
