@@ -16,9 +16,9 @@ export class GatosController {
     }
 
     @Get(':id')
-    findOne(@Param('id', ParseIntPipe) id : number, @Res() response: Response) {
+   async findOne(@Param('id', ParseIntPipe) id : number, @Res() response: Response) {
        
-        const gato = this.gatosService.findOne(id);
+        const gato = await this.gatosService.findOne(id);
 
         if(gato){
             response.status(HttpStatus.OK).json(gato);
