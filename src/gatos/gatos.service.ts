@@ -1,10 +1,13 @@
 import { Injectable } from '@nestjs/common';
-import { Gato } from 'src/gato/gato.interface';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Gato } from 'src/gato.entity';
+import { Gato as GatoInterface} from 'src/gato/gato.interface';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class GatosService {
 
-    private readonly gatos: Gato[] = [
+    private readonly gatos: GatoInterface[] = [
         {
             id: 11,
             nome: "Black 1",
@@ -18,12 +21,15 @@ export class GatosService {
             idade: 145
         }
     ];
+    constructor(@InjectRepository(Gato) private gatosRepository: Repository<Gato>){
 
-    findAll(): Gato[] {
+    }
+
+    findAll(): GatoInterface[] {
         return this.gatos;
     }
 
-    findOne (id:number): Gato | undefined {
+    findOne (id:number): GatoInterface | undefined {
         return this.gatos.find((gato) => gato.id === id);
     }
 
@@ -35,11 +41,11 @@ export class GatosService {
         this.gatos.splice(index, 1);
     }
 
-    create(gato: Gato) {
+    create(gato: GatoInterface) {
         this.gatos.push(gato);
     }
 
-    updateByIndex(index : number, gato: Gato){
+    updateByIndex(index : number, gato: GatoInterface){
         this.gatos.splice(index, 1, gato);
     }
 
