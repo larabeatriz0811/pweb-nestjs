@@ -3,6 +3,7 @@ import { fail } from 'assert';
 import { Response } from 'express';
 import { Gato } from 'src/gato/gato.interface';
 import { GatosService } from './gatos.service';
+import { promises } from 'dns';
 
 @Controller('gatos')
 export class GatosController {
@@ -10,7 +11,7 @@ export class GatosController {
     constructor(private gatosService: GatosService) {}
 
     @Get()
-    findAll(): Gato[] {
+    findAll(): Promise <Gato[]> {
         return this.gatosService.findAll();
     }
 
