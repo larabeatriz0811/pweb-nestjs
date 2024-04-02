@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { promises } from 'dns';
 import { Gato } from 'src/gato.entity';
 import { Gato as GatoInterface} from 'src/gato/gato.interface';
 import { Repository } from 'typeorm';
@@ -33,12 +34,16 @@ export class GatosService {
         return this.gatosRepository.findOneBy({id});
     }
 
-    findIndexById(id: number) : number{
-        return this.gatos.findIndex((gato) => gato.id === (id));
+    existsBy (id : number) : Promise<boolean>{
+        return this.gatosRepository.existsBy({id});
+    } 
+
+    async delete(id : number) {
+        await this.gatosRepository.delete(id);
     }
 
-    deleteByIndex(index : number){
-        this.gatos.splice(index, 1);
+    findIndexById(id: number) : number{
+        return this.gatos.findIndex((gato) => gato.id === (id));
     }
 
     create(gato: GatoInterface) {
